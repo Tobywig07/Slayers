@@ -1,0 +1,14 @@
+{
+  "type": "slayers:rune_molding",
+  "ingredients": [
+    {
+      "item": "slayers:empty_rune"
+    },
+    {
+      "item": "minecraft:rotten_flesh"
+    }
+  ],
+  "output": {
+    "item": "minecraft:gunpowder"
+  }
+}
