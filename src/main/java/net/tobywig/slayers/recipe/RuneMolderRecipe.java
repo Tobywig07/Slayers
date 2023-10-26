@@ -35,13 +35,13 @@ public class RuneMolderRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public ItemStack assemble(SimpleContainer pContainer) {
-        return output;
+    public NonNullList<Ingredient> getIngredients() {
+        return recipeItems;
     }
 
     @Override
-    public NonNullList<Ingredient> getIngredients() {
-        return recipeItems;
+    public ItemStack assemble(SimpleContainer pContainer) {
+        return output;
     }
 
     @Override
