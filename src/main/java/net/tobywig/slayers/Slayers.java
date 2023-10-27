@@ -22,7 +22,7 @@ import org.slf4j.Logger;
 @Mod(Slayers.MOD_ID)
 public class Slayers {
     public static final String MOD_ID = "slayers";
-    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LogUtils.getLogger();
 
     public Slayers() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();

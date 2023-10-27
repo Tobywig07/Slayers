@@ -31,7 +31,7 @@ public class RuneMolderRecipe implements Recipe<SimpleContainer> {
             return false;
         }
 
-        return recipeItems.get(0).test(pContainer.getItem(1)) && recipeItems.get(1).test(pContainer.getItem(2));
+        return recipeItems.get(0).test(pContainer.getItem(0)) && recipeItems.get(1).test(pContainer.getItem(1));
     }
 
     @Override
@@ -96,7 +96,7 @@ public class RuneMolderRecipe implements Recipe<SimpleContainer> {
         }
 
         @Override
-        public @Nullable RuneMolderRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf buf) {
+        public @Nullable RuneMolderRecipe fromNetwork(ResourceLocation id, FriendlyByteBuf buf) {
             NonNullList<Ingredient> inputs = NonNullList.withSize(buf.readInt(), Ingredient.EMPTY);
 
             for (int i = 0; i < inputs.size(); i++) {
@@ -104,17 +104,17 @@ public class RuneMolderRecipe implements Recipe<SimpleContainer> {
             }
 
             ItemStack output = buf.readItem();
-            return new RuneMolderRecipe(pRecipeId, output, inputs);
+            return new RuneMolderRecipe(id, output, inputs);
         }
 
         @Override
-        public void toNetwork(FriendlyByteBuf buf, RuneMolderRecipe pRecipe) {
-            buf.writeInt(pRecipe.getIngredients().size());
+        public void toNetwork(FriendlyByteBuf buf, RuneMolderRecipe recipe) {
+            buf.writeInt(recipe.getIngredients().size());
 
-            for (Ingredient ing : pRecipe.getIngredients()) {
+            for (Ingredient ing : recipe.getIngredients()) {
                 ing.toNetwork(buf);
             }
-            buf.writeItemStack(pRecipe.getResultItem(), false);
+            buf.writeItemStack(recipe.getResultItem(), false);
         }
     }
 }
