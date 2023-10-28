@@ -15,6 +15,15 @@ public class ModItems {
     public static final RegistryObject<Item> EMPTY_RUNE = ITEMS.register("empty_rune",
             () -> new Item(new Item.Properties().stacksTo(16).tab(ModCreativeModeTab.SLAYERS_TAB)));
 
+    public static final RegistryObject<Item> BASIC_RUNE = ITEMS.register("basic_rune",
+            () -> new Item(new Item.Properties().stacksTo(16).tab(ModCreativeModeTab.SLAYERS_TAB)));
+
+    public static final RegistryObject<Item> ADVANCED_RUNE = ITEMS.register("advanced_rune",
+            () -> new Item(new Item.Properties().stacksTo(16).tab(ModCreativeModeTab.SLAYERS_TAB)));
+
+    public static final RegistryObject<Item> SUPREME_RUNE = ITEMS.register("supreme_rune",
+            () -> new Item(new Item.Properties().stacksTo(16).tab(ModCreativeModeTab.SLAYERS_TAB)));
+
     public static final RegistryObject<Item> DREADED_RUNE = ITEMS.register("dreaded_rune",
             () -> new DreadedRuneItem(new Item.Properties().stacksTo(1).tab(ModCreativeModeTab.SLAYERS_TAB)));
 

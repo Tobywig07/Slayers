@@ -1,16 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "#o#",
+    " o ",
     "oxo",
-    "#o#"
+    " o "
   ],
   "key": {
     "o": {
-      "item": "minecraft:stone"
+      "item": "minecraft:blackstone"
     },
     "x": {
-      "item": "minecraft:blackstone"
+      "item": "minecraft:stone"
     }
   },
   "result": {

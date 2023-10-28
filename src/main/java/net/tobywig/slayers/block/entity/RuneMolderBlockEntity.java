@@ -13,6 +13,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.AbstractFurnaceBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -222,9 +223,9 @@ public class RuneMolderBlockEntity extends BlockEntity implements MenuProvider {
         if (hasRecipe(pEntity)) {
             pEntity.progress++;
 
-            if (blockState.getValue(RuneMolderBlock.LIT)) {
-                blockState.setValue(RuneMolderBlock.LIT, Boolean.TRUE);
-                level.setBlock(blockPos, blockState, 3);
+            if (!blockState.getValue(RuneMolderBlock.LIT)) {
+              //  blockState = blockState.setValue(RuneMolderBlock.LIT, true);
+                level.setBlock(blockPos, blockState.setValue(RuneMolderBlock.LIT, true), 3);
             }
 
             setChanged(level, blockPos, blockState);
@@ -236,9 +237,8 @@ public class RuneMolderBlockEntity extends BlockEntity implements MenuProvider {
         else {
             pEntity.resetProgress();
 
-            if (!blockState.getValue(RuneMolderBlock.LIT)) {
-                blockState.setValue(RuneMolderBlock.LIT, Boolean.FALSE);
-                level.setBlock(blockPos, blockState, 3);
+            if (blockState.getValue(RuneMolderBlock.LIT)) {
+                level.setBlock(blockPos, blockState.setValue(RuneMolderBlock.LIT, false), 3);
             }
 
             setChanged(level, blockPos, blockState);
