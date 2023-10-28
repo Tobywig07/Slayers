@@ -13,6 +13,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.tobywig.slayers.block.ModBlocks;
 import net.tobywig.slayers.block.entity.ModBlockEntities;
 import net.tobywig.slayers.item.ModItems;
+import net.tobywig.slayers.network.PacketHandlerV2;
 import net.tobywig.slayers.recipe.ModRecipes;
 import net.tobywig.slayers.screen.ModMenuTypes;
 import net.tobywig.slayers.screen.RuneMolderScreen;
@@ -40,6 +41,7 @@ public class Slayers {
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
+        PacketHandlerV2.register();
     }
 
     // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent

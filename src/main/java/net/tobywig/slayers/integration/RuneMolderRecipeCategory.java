@@ -1,6 +1,7 @@
 package net.tobywig.slayers.integration;
 
 import mezz.jei.api.constants.VanillaTypes;
+import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.helpers.IGuiHelper;
@@ -14,6 +15,8 @@ import net.minecraft.world.item.ItemStack;
 import net.tobywig.slayers.Slayers;
 import net.tobywig.slayers.block.ModBlocks;
 import net.tobywig.slayers.recipe.RuneMolderRecipe;
+
+import java.util.List;
 
 public class RuneMolderRecipeCategory implements IRecipeCategory<RuneMolderRecipe> {
     public final static ResourceLocation UID = new ResourceLocation(Slayers.MOD_ID, "rune_molding");
@@ -52,6 +55,9 @@ public class RuneMolderRecipeCategory implements IRecipeCategory<RuneMolderRecip
     public void setRecipe(IRecipeLayoutBuilder builder, RuneMolderRecipe recipe, IFocusGroup focuses) {
         builder.addSlot(RecipeIngredientRole.INPUT, 36, 15).addIngredients(recipe.getIngredients().get(0));
         builder.addSlot(RecipeIngredientRole.INPUT, 69, 15).addIngredients(recipe.getIngredients().get(1));
+        builder.addSlot(RecipeIngredientRole.INPUT, 111, 15)
+                .addIngredients(ForgeTypes.FLUID_STACK, List.of(recipe.getFluidStack()))
+                .setFluidRenderer(64000, false, 16, 61);
 
         builder.addSlot(RecipeIngredientRole.OUTPUT, 52, 58).addItemStack(recipe.getResultItem());
     }

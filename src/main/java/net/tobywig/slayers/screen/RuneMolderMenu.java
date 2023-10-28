@@ -1,5 +1,6 @@
 package net.tobywig.slayers.screen;
 
+import net.minecraft.commands.arguments.coordinates.Coordinates;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -8,6 +9,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.items.SlotItemHandler;
 import net.tobywig.slayers.block.ModBlocks;
 import net.tobywig.slayers.block.entity.RuneMolderBlockEntity;
@@ -16,6 +18,7 @@ public class RuneMolderMenu extends AbstractContainerMenu {
     public final RuneMolderBlockEntity blockEntity;
     private final Level level;
     private final ContainerData data;
+    private FluidStack fluidStack;
 
     public RuneMolderMenu(int id, Inventory inv, FriendlyByteBuf extraData) {
         this(id, inv, inv.player.level.getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(2));
@@ -27,6 +30,7 @@ public class RuneMolderMenu extends AbstractContainerMenu {
         blockEntity = (RuneMolderBlockEntity) entity;
         this.level = inv.player.level;
         this.data = data;
+        this.fluidStack = blockEntity.getFluid();
 
         addPlayerInventory(inv);
         addPlayerHotbar(inv);
@@ -40,6 +44,18 @@ public class RuneMolderMenu extends AbstractContainerMenu {
         });
 
         addDataSlots(data);
+    }
+
+    public void setFluid(FluidStack fluidStack) {
+        this.fluidStack = fluidStack;
+    }
+
+    public FluidStack getFluidStack() {
+        return fluidStack;
+    }
+
+    public RuneMolderBlockEntity getBlockEntity() {
+        return this.blockEntity;
     }
 
     public boolean isCrafting() {
@@ -126,4 +142,6 @@ public class RuneMolderMenu extends AbstractContainerMenu {
             this.addSlot(new Slot(playerInv, i, 8 + i * 18, 144));
         }
     }
+
+
 }

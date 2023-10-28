@@ -4,5 +4,8 @@
   "item.slayers.empty_rune": "Empty rune",
   "item.slayers.dreaded_rune": "Dreaded rune",
 
-  "block.slayers.rune_molder": "Rune molder"
+  "block.slayers.rune_molder": "Rune molder",
+
+  "slayers.tooltip.liquid.amount.with.capacity": "%s / %s mB",
+  "slayers.tooltip.liquid.amount": "%s mB"
 }

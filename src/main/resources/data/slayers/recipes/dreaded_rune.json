@@ -8,7 +8,12 @@
       "item": "minecraft:rotten_flesh"
     }
   ],
+  "fluid": {
+    "FluidName": "minecraft:lava",
+    "Amount": 500
+  },
+
   "output": {
-    "item": "minecraft:diamond"
+    "item": "slayers:dreaded_rune"
   }
 }

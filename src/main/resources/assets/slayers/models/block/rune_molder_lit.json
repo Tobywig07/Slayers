@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "slayers:block/blaze_molder_bottom",
+    "east": "slayers:block/blaze_molder_side",
+    "north": "slayers:block/blaze_molder_front_lit",
+    "particle": "slayers:block/blaze_molder_front_lit",
+    "south": "slayers:block/blaze_molder_side",
+    "up": "slayers:block/blaze_molder_side",
+    "west": "slayers:block/blaze_molder_side"
+  }
+}

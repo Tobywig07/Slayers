@@ -14,15 +14,23 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.AbstractFurnaceBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
+import net.tobywig.slayers.Slayers;
 import net.tobywig.slayers.block.custom.RuneMolderBlock;
 import net.tobywig.slayers.item.ModItems;
+import net.tobywig.slayers.network.PacketHandlerV2;
+import net.tobywig.slayers.network.packet.FluidSyncS2CPacket;
 import net.tobywig.slayers.recipe.RuneMolderRecipe;
 import net.tobywig.slayers.screen.RuneMolderMenu;
 import org.jetbrains.annotations.NotNull;
@@ -42,14 +50,37 @@ public class RuneMolderBlockEntity extends BlockEntity implements MenuProvider {
         @Override
         public boolean isItemValid(int slot, @NotNull ItemStack stack) {
             return switch (slot) {
-                case 0 -> stack.getItem() == ModItems.EMPTY_RUNE.get();
-                case 1 -> stack.getItem() == Items.ROTTEN_FLESH;
-                case 2 -> stack.getItem() == Items.LAVA_BUCKET;
+                case 0 -> true;
+                case 1 -> stack.getItem() == Items.ROTTEN_FLESH || stack.getItem() == Items.BONE || stack.getItem() == Items.ENDER_EYE || stack.getItem() == Items.BLAZE_ROD;
+                case 2 -> stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM).isPresent();
                 case 3 -> false;
                 default -> super.isItemValid(slot, stack);
             };
         }
     };
+
+    private final FluidTank FLUID_TANK = new FluidTank(64000) {
+        @Override
+        protected void onContentsChanged() {
+            setChanged();
+            if (!level.isClientSide()) {
+                PacketHandlerV2.sendToClients(new FluidSyncS2CPacket(this.fluid, worldPosition));
+            }
+        }
+
+        @Override
+        public boolean isFluidValid(FluidStack stack) {
+            return stack.getFluid() == Fluids.LAVA;
+        }
+    };
+
+    public void setFluid(FluidStack stack) {
+        this.FLUID_TANK.setFluid(stack);
+    }
+
+    public FluidStack getFluid() {
+        return this.FLUID_TANK.getFluid();
+    }
 
 
     private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
@@ -62,6 +93,9 @@ public class RuneMolderBlockEntity extends BlockEntity implements MenuProvider {
                             (index, stack) -> itemHandler.isItemValid(3, stack))),
                     Direction.EAST, LazyOptional.of(() -> new WrappedHandler(itemHandler, (index) -> index == 1 || index == 2,
                             (index, stack) -> itemHandler.isItemValid(1, stack) || itemHandler.isItemValid(2, stack))));
+
+    private LazyOptional<IFluidHandler> lazyFluidHandler = LazyOptional.empty();
+
 
     protected final ContainerData data;
     private int progress = 0;
@@ -103,6 +137,8 @@ public class RuneMolderBlockEntity extends BlockEntity implements MenuProvider {
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inv, Player player) {
+        PacketHandlerV2.sendToClients(new FluidSyncS2CPacket(this.getFluid(), worldPosition));
+
         return new RuneMolderMenu(id, inv, this, this.data);
     }
 
@@ -129,6 +165,10 @@ public class RuneMolderBlockEntity extends BlockEntity implements MenuProvider {
             }
         }
 
+        if (cap == ForgeCapabilities.FLUID_HANDLER) {
+            return lazyFluidHandler.cast();
+        }
+
         return super.getCapability(cap, side);
     }
 
@@ -136,18 +176,21 @@ public class RuneMolderBlockEntity extends BlockEntity implements MenuProvider {
     public void onLoad() {
         super.onLoad();
         lazyItemHandler = LazyOptional.of(() -> itemHandler);
+        lazyFluidHandler = LazyOptional.of(() -> FLUID_TANK);
     }
 
     @Override
     public void invalidateCaps() {
         super.invalidateCaps();
         lazyItemHandler.invalidate();
+        lazyFluidHandler.invalidate();
     }
 
     @Override
     protected void saveAdditional(CompoundTag nbt) {
         nbt.put("inventory", itemHandler.serializeNBT());
         nbt.putInt("rune_molder.progress", this.progress);
+        nbt = FLUID_TANK.writeToNBT(nbt);
 
         super.saveAdditional(nbt);
     }
@@ -157,6 +200,7 @@ public class RuneMolderBlockEntity extends BlockEntity implements MenuProvider {
         super.load(nbt);
         itemHandler.deserializeNBT(nbt.getCompound("inventory"));
         progress = nbt.getInt("rune_molder.progress");
+        FLUID_TANK.readFromNBT(nbt);
     }
 
     public void drops() {
@@ -168,6 +212,8 @@ public class RuneMolderBlockEntity extends BlockEntity implements MenuProvider {
         Containers.dropContents(this.level, this.worldPosition, inventory);
     }
 
+
+
     public static void tick(Level level, BlockPos blockPos, BlockState blockState, RuneMolderBlockEntity pEntity) {
         if (level.isClientSide()) {
             return;
@@ -175,6 +221,12 @@ public class RuneMolderBlockEntity extends BlockEntity implements MenuProvider {
 
         if (hasRecipe(pEntity)) {
             pEntity.progress++;
+
+            if (blockState.getValue(RuneMolderBlock.LIT)) {
+                blockState.setValue(RuneMolderBlock.LIT, Boolean.TRUE);
+                level.setBlock(blockPos, blockState, 3);
+            }
+
             setChanged(level, blockPos, blockState);
 
             if (pEntity.progress >= pEntity.maxProgress) {
@@ -183,15 +235,50 @@ public class RuneMolderBlockEntity extends BlockEntity implements MenuProvider {
         }
         else {
             pEntity.resetProgress();
+
+            if (!blockState.getValue(RuneMolderBlock.LIT)) {
+                blockState.setValue(RuneMolderBlock.LIT, Boolean.FALSE);
+                level.setBlock(blockPos, blockState, 3);
+            }
+
             setChanged(level, blockPos, blockState);
         }
+
+        if (hasFluidItem(pEntity)) {
+            transferItemToFluid(pEntity);
+        }
+    }
+
+    private static void transferItemToFluid(RuneMolderBlockEntity pEntity) {
+        pEntity.itemHandler.getStackInSlot(2).getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM).ifPresent(handler -> {
+            int drainAmount = Math.min(pEntity.FLUID_TANK.getSpace(), 1000);
+
+            FluidStack fluidStack = handler.drain(drainAmount, IFluidHandler.FluidAction.SIMULATE);
+            if (pEntity.FLUID_TANK.isFluidValid(fluidStack)) {
+                fluidStack = handler.drain(drainAmount, IFluidHandler.FluidAction.EXECUTE);
+                fillTankWithFluid(pEntity, fluidStack, handler.getContainer());
+            }
+        });
+    }
+
+    private static void fillTankWithFluid(RuneMolderBlockEntity pEntity, FluidStack fluidStack, ItemStack container) {
+        pEntity.FLUID_TANK.fill(fluidStack, IFluidHandler.FluidAction.EXECUTE);
+
+        pEntity.itemHandler.extractItem(2, 1, false);
+        pEntity.itemHandler.insertItem(2, container, false);
+    }
+
+    private static boolean hasFluidItem(RuneMolderBlockEntity pEntity) {
+        return pEntity.itemHandler.getStackInSlot(2).getCount() > 0;
     }
 
     private void resetProgress() {
         this.progress = 0;
     }
 
+
     private static void craftItem(RuneMolderBlockEntity pEntity) {
+
         Level level = pEntity.level;
         SimpleContainer inventory = new SimpleContainer(pEntity.itemHandler.getSlots());
         for (int i = 0; i < pEntity.itemHandler.getSlots(); i++) {
@@ -202,6 +289,7 @@ public class RuneMolderBlockEntity extends BlockEntity implements MenuProvider {
                 .getRecipeFor(RuneMolderRecipe.Type.INSTANCE, inventory, level);
 
         if (hasRecipe(pEntity)) {
+            pEntity.FLUID_TANK.drain(recipe.get().getFluidStack().getAmount(), IFluidHandler.FluidAction.EXECUTE);
             pEntity.itemHandler.extractItem(0, 1, false);
             pEntity.itemHandler.extractItem(1, 1, false);
             pEntity.itemHandler.setStackInSlot(3, new ItemStack(recipe.get().getResultItem().getItem(),
@@ -210,6 +298,7 @@ public class RuneMolderBlockEntity extends BlockEntity implements MenuProvider {
             pEntity.resetProgress();
         }
     }
+
 
     private static boolean hasRecipe(RuneMolderBlockEntity pEntity) {
         Level level = pEntity.level;
@@ -221,8 +310,20 @@ public class RuneMolderBlockEntity extends BlockEntity implements MenuProvider {
         Optional<RuneMolderRecipe> recipe = level.getRecipeManager()
                 .getRecipeFor(RuneMolderRecipe.Type.INSTANCE, inventory, level);
 
-        return recipe.isPresent() && canInsertAmountInOutputSlot(inventory) &&
-                canInsertItemInOutputSlot(inventory, recipe.get().getResultItem());
+        return recipe.isPresent() &&
+                canInsertAmountInOutputSlot(inventory) &&
+                canInsertItemInOutputSlot(inventory, recipe.get().getResultItem()) &&
+                hasCorrectFluidInTank(pEntity, recipe) &&
+                hasCorrectFluidAmountInTank(pEntity, recipe);
+    }
+
+    private static boolean hasCorrectFluidAmountInTank(RuneMolderBlockEntity pEntity, Optional<RuneMolderRecipe> recipe) {
+        return pEntity.FLUID_TANK.getFluidAmount() >= recipe.get().getFluidStack().getAmount();
+    }
+
+
+    private static boolean hasCorrectFluidInTank(RuneMolderBlockEntity entity, Optional<RuneMolderRecipe> recipe) {
+        return recipe.get().getFluidStack().equals(entity.FLUID_TANK.getFluid());
     }
 
     private static boolean canInsertItemInOutputSlot(SimpleContainer inventory, ItemStack itemStack) {

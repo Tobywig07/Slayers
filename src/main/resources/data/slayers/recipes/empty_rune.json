@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#o#",
+    "oxo",
+    "#o#"
+  ],
+  "key": {
+    "o": {
+      "item": "minecraft:stone"
+    },
+    "x": {
+      "item": "minecraft:blackstone"
+    }
+  },
+  "result": {
+    "item": "slayers:empty_rune"
+  }
+}

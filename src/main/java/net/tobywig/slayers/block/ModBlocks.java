@@ -22,8 +22,8 @@ public class ModBlocks {
             DeferredRegister.create(ForgeRegistries.BLOCKS, Slayers.MOD_ID);
 
     public static RegistryObject<Block> RUNE_MOLDER = registerBlock("rune_molder",
-            () -> new RuneMolderBlock(BlockBehaviour.Properties.of(Material.STONE).strength(6f)
-                    .requiresCorrectToolForDrops()), ModCreativeModeTab.SLAYERS_TAB);
+            () -> new RuneMolderBlock(BlockBehaviour.Properties.of(Material.STONE).strength(3.5f)
+                    .requiresCorrectToolForDrops().lightLevel(state -> state.getValue(RuneMolderBlock.LIT) ? 13 : 0)), ModCreativeModeTab.SLAYERS_TAB);
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block, CreativeModeTab tab) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);
