@@ -1,6 +1,7 @@
 package net.tobywig.slayers.item;
 
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Rarity;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -24,8 +25,12 @@ public class ModItems {
     public static final RegistryObject<Item> SUPREME_RUNE = ITEMS.register("supreme_rune",
             () -> new Item(new Item.Properties().stacksTo(16).tab(ModCreativeModeTab.SLAYERS_TAB)));
 
-    public static final RegistryObject<Item> DREADED_RUNE = ITEMS.register("dreaded_rune",
-            () -> new DreadedRuneItem(new Item.Properties().stacksTo(1).tab(ModCreativeModeTab.SLAYERS_TAB)));
+    public static final RegistryObject<Item> DREADED_RUNE_T1 = ITEMS.register("dreaded_rune_t1",
+            () -> new DreadedRuneItem(new Item.Properties().stacksTo(1).tab(ModCreativeModeTab.SLAYERS_TAB).rarity(Rarity.UNCOMMON)));
+    public static final RegistryObject<Item> DREADED_RUNE_T2 = ITEMS.register("dreaded_rune_t2",
+            () -> new DreadedRuneItem(new Item.Properties().stacksTo(1).tab(ModCreativeModeTab.SLAYERS_TAB).rarity(Rarity.RARE)));
+    public static final RegistryObject<Item> DREADED_RUNE_T3 = ITEMS.register("dreaded_rune_t3",
+            () -> new DreadedRuneItem(new Item.Properties().stacksTo(1).tab(ModCreativeModeTab.SLAYERS_TAB).rarity(Rarity.EPIC)));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

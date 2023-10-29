@@ -6,7 +6,9 @@
   "item.slayers.advanced_rune": "Advanced rune",
   "item.slayers.Supreme_rune": "Supreme rune",
 
-  "item.slayers.dreaded_rune": "Dreaded rune",
+  "item.slayers.dreaded_rune_t1": "Rune of the dreaded ghoul",
+  "item.slayers.dreaded_rune_t2": "Rune of the dreaded ghoul",
+  "item.slayers.dreaded_rune_t3": "Rune of the dreaded ghoul",
 
   "block.slayers.rune_molder": "Rune molder",
 
