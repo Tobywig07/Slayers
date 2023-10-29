@@ -12,6 +12,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import net.tobywig.slayers.capability.killAmount.PlayerKillsProvider;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -29,19 +30,26 @@ public class DreadedRuneItem extends Item {
 
             // tier 1
             if (item.getRarity() == Rarity.UNCOMMON) {
-                pPlayer.sendSystemMessage(Component.literal("1"));
-                // set boss
-                // set
+                pPlayer.getCapability(PlayerKillsProvider.PLAYER_KILLS).ifPresent(kills -> {
+                    kills.resetKills();
+                    kills.setKillsNeeded(10);
+                });
             }
 
             // tier 2
             if (item.getRarity() == Rarity.RARE) {
-                pPlayer.sendSystemMessage(Component.literal("2"));
+                pPlayer.getCapability(PlayerKillsProvider.PLAYER_KILLS).ifPresent(kills -> {
+                    kills.resetKills();
+                    kills.setKillsNeeded(20);
+                });
             }
 
             // tier 3
             if (item.getRarity() == Rarity.EPIC) {
-                pPlayer.sendSystemMessage(Component.literal("3"));
+                pPlayer.getCapability(PlayerKillsProvider.PLAYER_KILLS).ifPresent(kills -> {
+                    kills.resetKills();
+                    kills.setKillsNeeded(30);
+                });
             }
 
             // add particles
