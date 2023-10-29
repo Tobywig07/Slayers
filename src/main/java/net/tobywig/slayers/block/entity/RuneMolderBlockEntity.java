@@ -224,7 +224,6 @@ public class RuneMolderBlockEntity extends BlockEntity implements MenuProvider {
             pEntity.progress++;
 
             if (!blockState.getValue(RuneMolderBlock.LIT)) {
-              //  blockState = blockState.setValue(RuneMolderBlock.LIT, true);
                 level.setBlock(blockPos, blockState.setValue(RuneMolderBlock.LIT, true), 3);
             }
 

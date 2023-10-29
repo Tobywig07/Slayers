@@ -1,5 +1,6 @@
 package net.tobywig.slayers.item.custom;
 
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -8,7 +9,11 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class DreadedRuneItem extends Item {
     public DreadedRuneItem(Properties pProperties) {
@@ -33,4 +38,12 @@ public class DreadedRuneItem extends Item {
         return super.use(pLevel, pPlayer, pUsedHand);
     }
 
+    @Override
+    public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
+        if (pStack.hasTag()) {
+            String tier = pStack.getTag().getString("slayers:tier");
+            pTooltipComponents.add(Component.literal(tier));
+        }
+        super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
+    }
 }

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "xxx",
+    "xox",
+    "xxx"
+  ],
+  "key": {
+    "o": {
+      "item": "minecraft:iron_ingot"
+    },
+    "x": {
+      "item": "slayers:empty_rune"
+    }
+  },
+  "result": {
+    "item": "slayers:basic_rune"
+  }
+}

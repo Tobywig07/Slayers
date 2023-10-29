@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "xxx",
+    "xox",
+    "xxx"
+  ],
+  "key": {
+    "o": {
+      "item": "minecraft:diamond"
+    },
+    "x": {
+      "item": "slayers:basic_rune"
+    }
+  },
+  "result": {
+    "item": "slayers:advanced_rune"
+  }
+}

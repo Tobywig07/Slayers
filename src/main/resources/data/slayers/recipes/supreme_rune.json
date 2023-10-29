@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "xxx",
+    "xox",
+    "xxx"
+  ],
+  "key": {
+    "o": {
+      "item": "minecraft:netherite_scrap"
+    },
+    "x": {
+      "item": "slayers:advanced_rune"
+    }
+  },
+  "result": {
+    "item": "slayers:supreme_rune"
+  }
+}
