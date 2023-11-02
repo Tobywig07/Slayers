@@ -12,7 +12,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.tobywig.slayers.capability.killAmount.PlayerKillsProvider;
+import net.tobywig.slayers.capability.killTracker.PlayerKillTrackerProvider;
+import net.tobywig.slayers.client.ClientKillTrackerData;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -30,24 +31,27 @@ public class DreadedRuneItem extends Item {
 
             // tier 1
             if (item.getRarity() == Rarity.UNCOMMON) {
-                pPlayer.getCapability(PlayerKillsProvider.PLAYER_KILLS).ifPresent(kills -> {
+                pPlayer.getCapability(PlayerKillTrackerProvider.PLAYER_KILLS).ifPresent(kills -> {
                     kills.resetKills();
+                    ClientKillTrackerData.set(0, 10);
                     kills.setKillsNeeded(10);
                 });
             }
 
             // tier 2
             if (item.getRarity() == Rarity.RARE) {
-                pPlayer.getCapability(PlayerKillsProvider.PLAYER_KILLS).ifPresent(kills -> {
+                pPlayer.getCapability(PlayerKillTrackerProvider.PLAYER_KILLS).ifPresent(kills -> {
                     kills.resetKills();
+                    ClientKillTrackerData.set(0, 20);
                     kills.setKillsNeeded(20);
                 });
             }
 
             // tier 3
             if (item.getRarity() == Rarity.EPIC) {
-                pPlayer.getCapability(PlayerKillsProvider.PLAYER_KILLS).ifPresent(kills -> {
+                pPlayer.getCapability(PlayerKillTrackerProvider.PLAYER_KILLS).ifPresent(kills -> {
                     kills.resetKills();
+                    ClientKillTrackerData.set(0, 30);
                     kills.setKillsNeeded(30);
                 });
             }

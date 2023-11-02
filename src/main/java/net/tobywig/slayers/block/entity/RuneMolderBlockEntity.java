@@ -13,9 +13,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.AbstractFurnaceBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
@@ -27,11 +25,9 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
-import net.tobywig.slayers.Slayers;
 import net.tobywig.slayers.block.custom.RuneMolderBlock;
-import net.tobywig.slayers.item.ModItems;
 import net.tobywig.slayers.network.PacketHandlerV2;
-import net.tobywig.slayers.network.packet.FluidSyncS2CPacket;
+import net.tobywig.slayers.network.packet.c_to_s.FluidSyncPacket;
 import net.tobywig.slayers.recipe.RuneMolderRecipe;
 import net.tobywig.slayers.screen.RuneMolderMenu;
 import org.jetbrains.annotations.NotNull;
@@ -65,7 +61,7 @@ public class RuneMolderBlockEntity extends BlockEntity implements MenuProvider {
         protected void onContentsChanged() {
             setChanged();
             if (!level.isClientSide()) {
-                PacketHandlerV2.sendToClients(new FluidSyncS2CPacket(this.fluid, worldPosition));
+                PacketHandlerV2.sendToClients(new FluidSyncPacket(this.fluid, worldPosition));
             }
         }
 
@@ -138,7 +134,7 @@ public class RuneMolderBlockEntity extends BlockEntity implements MenuProvider {
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inv, Player player) {
-        PacketHandlerV2.sendToClients(new FluidSyncS2CPacket(this.getFluid(), worldPosition));
+        PacketHandlerV2.sendToClients(new FluidSyncPacket(this.getFluid(), worldPosition));
 
         return new RuneMolderMenu(id, inv, this, this.data);
     }

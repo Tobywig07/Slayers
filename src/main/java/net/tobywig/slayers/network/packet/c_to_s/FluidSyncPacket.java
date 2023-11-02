@@ -1,4 +1,4 @@
-package net.tobywig.slayers.network.packet;
+package net.tobywig.slayers.network.packet.c_to_s;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
@@ -10,16 +10,16 @@ import net.tobywig.slayers.screen.RuneMolderMenu;
 
 import java.util.function.Supplier;
 
-public class FluidSyncS2CPacket {
+public class FluidSyncPacket {
     private final FluidStack fluidStack;
     private final BlockPos pos;
 
-    public FluidSyncS2CPacket(FluidStack fluidStack, BlockPos pos) {
+    public FluidSyncPacket(FluidStack fluidStack, BlockPos pos) {
         this.fluidStack = fluidStack;
         this.pos = pos;
     }
 
-    public FluidSyncS2CPacket(FriendlyByteBuf buf) {
+    public FluidSyncPacket(FriendlyByteBuf buf) {
         this.fluidStack = buf.readFluidStack();
         this.pos = buf.readBlockPos();
     }

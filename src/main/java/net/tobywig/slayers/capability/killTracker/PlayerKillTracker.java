@@ -1,10 +1,11 @@
-package net.tobywig.slayers.capability.killAmount;
+package net.tobywig.slayers.capability.killTracker;
 
 import net.minecraft.nbt.CompoundTag;
 
-public class PlayerKills {
+public class PlayerKillTracker {
     private int kills;
     private int killsNeeded;
+    private int bossID;
 
 
     public int getCurrentKills() {
@@ -35,7 +36,7 @@ public class PlayerKills {
     }
 
 
-    public void copyFrom(PlayerKills source) {
+    public void copyFrom(PlayerKillTracker source) {
         this.kills = source.kills;
         this.killsNeeded = source.killsNeeded;
     }

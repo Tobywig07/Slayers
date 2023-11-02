@@ -1,4 +1,4 @@
-package net.tobywig.slayers.capability.killAmount;
+package net.tobywig.slayers.capability.killTracker;
 
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -11,15 +11,15 @@ import net.minecraftforge.common.util.LazyOptional;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class PlayerKillsProvider implements ICapabilityProvider, INBTSerializable<CompoundTag> {
-    public static Capability<PlayerKills> PLAYER_KILLS = CapabilityManager.get(new CapabilityToken<PlayerKills>() { });
+public class PlayerKillTrackerProvider implements ICapabilityProvider, INBTSerializable<CompoundTag> {
+    public static Capability<PlayerKillTracker> PLAYER_KILLS = CapabilityManager.get(new CapabilityToken<PlayerKillTracker>() { });
 
-    private PlayerKills kills = null;
-    private final LazyOptional<PlayerKills> optional = LazyOptional.of(this::createPlayerKillValues);
+    private PlayerKillTracker kills = null;
+    private final LazyOptional<PlayerKillTracker> optional = LazyOptional.of(this::createPlayerKillValues);
 
-    private PlayerKills createPlayerKillValues() {
+    private PlayerKillTracker createPlayerKillValues() {
         if (this.kills == null) {
-            this.kills = new PlayerKills();
+            this.kills = new PlayerKillTracker();
         }
         return this.kills;
     }

@@ -7,7 +7,8 @@ import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.simple.SimpleChannel;
 import net.tobywig.slayers.Slayers;
-import net.tobywig.slayers.network.packet.FluidSyncS2CPacket;
+import net.tobywig.slayers.network.packet.c_to_s.FluidSyncPacket;
+import net.tobywig.slayers.network.packet.s_to_c.SlayerDataSyncPacket;
 
 public class PacketHandlerV2 {
 
@@ -31,10 +32,16 @@ public class PacketHandlerV2 {
 
         INSTANCE = net;
 
-        net.messageBuilder(FluidSyncS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
-                .encoder(FluidSyncS2CPacket::toBytes)
-                .decoder(FluidSyncS2CPacket::new)
-                .consumerMainThread(FluidSyncS2CPacket::handle)
+        net.messageBuilder(FluidSyncPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .encoder(FluidSyncPacket::toBytes)
+                .decoder(FluidSyncPacket::new)
+                .consumerMainThread(FluidSyncPacket::handle)
+                .add();
+
+        net.messageBuilder(SlayerDataSyncPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(SlayerDataSyncPacket::new)
+                .encoder(SlayerDataSyncPacket::toBytes)
+                .consumerMainThread(SlayerDataSyncPacket::handle)
                 .add();
     }
 
