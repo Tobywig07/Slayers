@@ -12,6 +12,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.tobywig.slayers.block.ModBlocks;
 import net.tobywig.slayers.block.entity.ModBlockEntities;
+import net.tobywig.slayers.enchantment.ModEnchantments;
 import net.tobywig.slayers.item.ModItems;
 import net.tobywig.slayers.network.PacketHandlerV2;
 import net.tobywig.slayers.recipe.ModRecipes;
@@ -31,6 +32,8 @@ public class Slayers {
 
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
+
+        ModEnchantments.register(modEventBus);
 
         ModBlockEntities.register(modEventBus);
         ModMenuTypes.register(modEventBus);

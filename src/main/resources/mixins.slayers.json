@@ -1,0 +1,9 @@
+{
+  "required": true,
+  "package": "net.tobywig.slayers.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "mixins.slayers.refmap.json",
+  "mixins": [
+    "AnvilMenuMixin"
+  ]
+}

@@ -3,6 +3,7 @@ plugins {
     id 'maven-publish'
     id 'net.minecraftforge.gradle' version '5.1.+'
     id 'org.parchmentmc.librarian.forgegradle' version '1.+'
+    id 'org.spongepowered.mixin' version '0.7.+'
 }
 
 version = '0.0.1-1.19.2'
@@ -127,16 +128,40 @@ repositories {
         name = "ModMaven"
         url = "https://modmaven.dev"
     }
+
+    maven {
+        url "https://maven2.bai.lol"
+        content {
+            includeGroup "lol.bai"
+            includeGroup "mcp.mobius.waila"
+        }
+    }
 }
 
 dependencies {
     minecraft 'net.minecraftforge:forge:1.19.2-43.3.0'
+
+    // Apply Mixin AP
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
     // compile against the JEI API but do not include it at runtime
     compileOnly(fg.deobf("mezz.jei:jei-${mc_version}-common-api:${jei_version}"))
     compileOnly(fg.deobf("mezz.jei:jei-${mc_version}-forge-api:${jei_version}"))
     // at runtime, use the full JEI jar for Forge
     runtimeOnly(fg.deobf("mezz.jei:jei-${mc_version}-forge:${jei_version}"))
+
+    // compile against the API
+    compileOnly fg.deobf("mcp.mobius.waila:wthit-api:forge-${wthitVersion}")
+
+    // run against the full jar
+    runtimeOnly fg.deobf("mcp.mobius.waila:wthit:forge-${wthitVersion}")
+    runtimeOnly fg.deobf("lol.bai:badpackets:forge-${badpacketsVersion}")
+}
+
+mixin {
+    // MixinGradle Settings
+    add sourceSets.main, 'mixins.slayers.refmap.json'
+    config 'mixins.slayers.json'
 }
 
 // Example for how to get properties into the manifest for reading at runtime.

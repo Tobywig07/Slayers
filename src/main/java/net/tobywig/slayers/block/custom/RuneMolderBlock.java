@@ -56,7 +56,6 @@ public class RuneMolderBlock extends BaseEntityBlock {
     }
 
 
-
     @Override
     public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
         if (pState.getBlock() != pNewState.getBlock()) {
