@@ -11,12 +11,9 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.EnchantmentInstance;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
-import net.minecraftforge.event.AnvilUpdateEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
@@ -26,12 +23,8 @@ import net.minecraftforge.fml.common.Mod;
 import net.tobywig.slayers.Slayers;
 import net.tobywig.slayers.capability.killTracker.PlayerKillTracker;
 import net.tobywig.slayers.capability.killTracker.PlayerKillTrackerProvider;
-import net.tobywig.slayers.enchantment.ModEnchantments;
 import net.tobywig.slayers.network.PacketHandlerV2;
 import net.tobywig.slayers.network.packet.s_to_c.SlayerDataSyncPacket;
-
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @Mod.EventBusSubscriber
 public class ModEvents {

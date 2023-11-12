@@ -10,6 +10,9 @@
   "item.slayers.dreaded_rune_t2": "Rune of the dreaded ghoul",
   "item.slayers.dreaded_rune_t3": "Rune of the dreaded ghoul",
 
+  "item.slayers.recovery_staff": "Staff of Recovery",
+  "item.slayers.salvation_staff": "Staff of Salvation",
+
   "block.slayers.rune_molder": "Rune molder",
 
   "slayers.tooltip.liquid.amount.with.capacity": "%s / %s mB",

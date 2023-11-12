@@ -8,6 +8,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.tobywig.slayers.Slayers;
 import net.tobywig.slayers.item.custom.DreadedRuneItem;
+import net.tobywig.slayers.item.custom.HealingStaffItem;
 
 public class ModItems {
     public static final DeferredRegister<Item> ITEMS =
@@ -31,6 +32,14 @@ public class ModItems {
             () -> new DreadedRuneItem(new Item.Properties().stacksTo(1).tab(ModCreativeModeTab.SLAYERS_TAB).rarity(Rarity.RARE)));
     public static final RegistryObject<Item> DREADED_RUNE_T3 = ITEMS.register("dreaded_rune_t3",
             () -> new DreadedRuneItem(new Item.Properties().stacksTo(1).tab(ModCreativeModeTab.SLAYERS_TAB).rarity(Rarity.EPIC)));
+
+    public static final RegistryObject<Item> DREADED_FLESH = ITEMS.register("dreaded_flesh",
+            () -> new Item(new Item.Properties().stacksTo(64).tab(ModCreativeModeTab.SLAYERS_TAB).rarity(Rarity.COMMON)));
+
+    public static final RegistryObject<Item> RECOVERY_STAFF = ITEMS.register("recovery_staff",
+            () -> new HealingStaffItem(new Item.Properties().stacksTo(1).tab(ModCreativeModeTab.SLAYERS_TAB).rarity(Rarity.UNCOMMON)));
+    public static final RegistryObject<Item> SALVATION_STAFF = ITEMS.register("salvation_staff",
+            () -> new HealingStaffItem(new Item.Properties().stacksTo(1).tab(ModCreativeModeTab.SLAYERS_TAB).rarity(Rarity.RARE)));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
