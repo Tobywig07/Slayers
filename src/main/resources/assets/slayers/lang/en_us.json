@@ -1,19 +1,23 @@
 {
   "itemGroup.slayerstab": "Slayers",
 
-  "item.slayers.empty_rune": "Empty rune",
-  "item.slayers.basic_rune": "Basic rune",
-  "item.slayers.advanced_rune": "Advanced rune",
-  "item.slayers.supreme_rune": "Supreme rune",
+  "item.slayers.empty_rune": "Empty Rune",
+  "item.slayers.basic_rune": "Basic Rune",
+  "item.slayers.advanced_rune": "Advanced Rune",
+  "item.slayers.supreme_rune": "Supreme Rune",
 
-  "item.slayers.dreaded_rune_t1": "Rune of the dreaded ghoul",
-  "item.slayers.dreaded_rune_t2": "Rune of the dreaded ghoul",
-  "item.slayers.dreaded_rune_t3": "Rune of the dreaded ghoul",
+  "item.slayers.dreaded_rune_t1": "Rune of the Dreaded Ghoul",
+  "item.slayers.dreaded_rune_t2": "Rune of the Dreaded Ghoul",
+  "item.slayers.dreaded_rune_t3": "Rune of the Dreaded Ghoul",
+
+  "item.slayers.dreaded_flesh": "Dreaded Flesh",
 
   "item.slayers.recovery_staff": "Staff of Recovery",
   "item.slayers.salvation_staff": "Staff of Salvation",
 
-  "block.slayers.rune_molder": "Rune molder",
+  "item.slayers.undead_sword": "Undead Sword",
+
+  "block.slayers.rune_molder": "Rune Molder",
 
   "slayers.tooltip.liquid.amount.with.capacity": "%s / %s mB",
   "slayers.tooltip.liquid.amount": "%s mB"

@@ -7,6 +7,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
@@ -17,14 +18,18 @@ import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.tobywig.slayers.Slayers;
 import net.tobywig.slayers.capability.killTracker.PlayerKillTracker;
 import net.tobywig.slayers.capability.killTracker.PlayerKillTrackerProvider;
+import net.tobywig.slayers.item.ModItems;
 import net.tobywig.slayers.network.PacketHandlerV2;
 import net.tobywig.slayers.network.packet.s_to_c.SlayerDataSyncPacket;
+
+import java.util.Random;
 
 @Mod.EventBusSubscriber
 public class ModEvents {
@@ -70,6 +75,18 @@ public class ModEvents {
     }
 
     @SubscribeEvent
+    public static void onHurt(LivingHurtEvent event) {
+        if (event.getSource().getEntity() instanceof LivingEntity attacker) {
+            if (attacker.getMainHandItem().getItem() == ModItems.UNDEAD_SWORD.get() && event.getEntity() instanceof Zombie) {
+                event.setAmount(event.getAmount() * 1.2f);
+            }
+        }
+
+    }
+
+
+
+    @SubscribeEvent
     public static void onKill(LivingDeathEvent event) {
         if (!event.getEntity().level.isClientSide()) {
             if (event.getEntity() instanceof Zombie zombie && event.getSource().getEntity() instanceof Player player) {
@@ -95,6 +112,12 @@ public class ModEvents {
                     ItemStack item = new ItemStack(Items.ENCHANTED_BOOK);
                     EnchantedBookItem.addEnchantment(item, new EnchantmentInstance(Enchantments.SMITE, 6));
                     zombie.spawnAtLocation(item);
+
+                    Random random = new Random();
+                    for (int i = 0; i < random.nextInt(2); i++) {
+                        player.sendSystemMessage(Component.literal(String.valueOf(i)));
+                        zombie.spawnAtLocation(new ItemStack(ModItems.DREADED_FLESH.get()));
+                    }
                 }
             }
 

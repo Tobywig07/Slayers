@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " o ",
+    " o ",
+    " x "
+  ],
+  "key": {
+    "o": {
+      "item": "slayers:dreaded_flesh"
+    },
+    "x": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "slayers:undead_sword"
+  }
+}
