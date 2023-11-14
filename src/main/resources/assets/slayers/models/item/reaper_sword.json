@@ -1,6 +1,6 @@
 {
   "parent": "item/handheld",
   "textures": {
-    "layer0": "slayers:item/undead_sword"
+    "layer0": "slayers:item/reaper_sword"
   }
 }

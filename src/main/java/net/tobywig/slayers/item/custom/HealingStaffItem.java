@@ -14,6 +14,7 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.Level;
 import net.tobywig.slayers.item.ModItems;
 import org.jetbrains.annotations.Nullable;
@@ -31,24 +32,47 @@ public class HealingStaffItem extends Item {
     }
 
     @Override
+    public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
+        return false;
+    }
+
+    @Override
+    public boolean isEnchantable(ItemStack pStack) {
+        return false;
+    }
+
+    @Override
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
         ItemStack item = pPlayer.getItemInHand(pUsedHand);
 
         // server side
         if (!pLevel.isClientSide()) {
             if (item.getRarity() == Rarity.UNCOMMON) {
-                pPlayer.heal(2);
-                pPlayer.getCooldowns().addCooldown(pPlayer.getInventory().getItem(pPlayer.getInventory().findSlotMatchingItem(ModItems.SALVATION_STAFF.get().getDefaultInstance())).getItem(), 100);
+                if (!pPlayer.getCooldowns().isOnCooldown(ModItems.SALVATION_STAFF.get())) {
+                    pPlayer.heal(2);
+
+                    if (pPlayer.getInventory().contains(ModItems.SALVATION_STAFF.get().getDefaultInstance())) {
+                        pPlayer.getCooldowns().addCooldown(pPlayer.getInventory().getItem(pPlayer.getInventory().findSlotMatchingItem(ModItems.SALVATION_STAFF.get().getDefaultInstance())).getItem(), 100);
+                    }
+
+                    pPlayer.getCooldowns().addCooldown(item.getItem(), 100);
+                }
+                else pPlayer.sendSystemMessage(Component.literal("You have already healed recently!").withStyle(ChatFormatting.DARK_RED));
             }
 
             if (item.getRarity() == Rarity.RARE) {
-                pPlayer.heal(4);
-                pPlayer.getCooldowns().addCooldown(pPlayer.getInventory().getItem(pPlayer.getInventory().findSlotMatchingItem(ModItems.RECOVERY_STAFF.get().getDefaultInstance())).getItem(), 100);
+                if (!pPlayer.getCooldowns().isOnCooldown(ModItems.RECOVERY_STAFF.get())) {
+                    pPlayer.heal(4);
+
+                    if (pPlayer.getInventory().contains(ModItems.RECOVERY_STAFF.get().getDefaultInstance())) {
+                        pPlayer.getCooldowns().addCooldown(pPlayer.getInventory().getItem(pPlayer.getInventory().findSlotMatchingItem(ModItems.RECOVERY_STAFF.get().getDefaultInstance())).getItem(), 100);
+                    }
+
+                    pPlayer.getCooldowns().addCooldown(item.getItem(), 100);
+                }
+                else pPlayer.sendSystemMessage(Component.literal("You have already healed recently!").withStyle(ChatFormatting.DARK_RED));
 
             }
-
-
-            pPlayer.getCooldowns().addCooldown(item.getItem(), 100);
 
         }
 

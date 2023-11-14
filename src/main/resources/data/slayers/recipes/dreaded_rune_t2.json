@@ -2,7 +2,7 @@
   "type": "slayers:rune_molding",
   "ingredients": [
     {
-      "item": "slayers:basic_rune"
+      "item": "slayers:advanced_rune"
     },
     {
       "item": "minecraft:rotten_flesh"
@@ -14,6 +14,6 @@
   },
 
   "output": {
-    "item": "slayers:dreaded_rune_t1"
+    "item": "slayers:dreaded_rune_t2"
   }
 }

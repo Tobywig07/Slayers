@@ -14,6 +14,7 @@ public class ClientEvents {
 
     }
 
+
     @Mod.EventBusSubscriber(modid = Slayers.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class ClientModBusEvents {
         @SubscribeEvent

@@ -11,6 +11,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.Level;
 import net.tobywig.slayers.capability.killTracker.PlayerKillTrackerProvider;
 import net.tobywig.slayers.client.ClientKillTrackerData;
@@ -21,6 +22,16 @@ import java.util.List;
 public class DreadedRuneItem extends Item {
     public DreadedRuneItem(Properties pProperties) {
         super(pProperties);
+    }
+
+    @Override
+    public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
+        return false;
+    }
+
+    @Override
+    public boolean isEnchantable(ItemStack pStack) {
+        return false;
     }
 
     @Override

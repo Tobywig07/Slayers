@@ -9,9 +9,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.tobywig.slayers.Slayers;
-import net.tobywig.slayers.item.custom.DreadedRuneItem;
-import net.tobywig.slayers.item.custom.HealingStaffItem;
-import net.tobywig.slayers.item.custom.UndeadSwordItem;
+import net.tobywig.slayers.item.custom.*;
 
 public class ModItems {
     public static final DeferredRegister<Item> ITEMS =
@@ -36,16 +34,29 @@ public class ModItems {
     public static final RegistryObject<Item> DREADED_RUNE_T3 = ITEMS.register("dreaded_rune_t3",
             () -> new DreadedRuneItem(new Item.Properties().stacksTo(1).tab(ModCreativeModeTab.SLAYERS_TAB).rarity(Rarity.EPIC)));
 
+
     public static final RegistryObject<Item> DREADED_FLESH = ITEMS.register("dreaded_flesh",
             () -> new Item(new Item.Properties().stacksTo(64).tab(ModCreativeModeTab.SLAYERS_TAB).rarity(Rarity.COMMON)));
+
 
     public static final RegistryObject<Item> RECOVERY_STAFF = ITEMS.register("recovery_staff",
             () -> new HealingStaffItem(new Item.Properties().stacksTo(1).tab(ModCreativeModeTab.SLAYERS_TAB).rarity(Rarity.UNCOMMON)));
     public static final RegistryObject<Item> SALVATION_STAFF = ITEMS.register("salvation_staff",
             () -> new HealingStaffItem(new Item.Properties().stacksTo(1).tab(ModCreativeModeTab.SLAYERS_TAB).rarity(Rarity.RARE)));
 
+
     public static final RegistryObject<Item> UNDEAD_SWORD = ITEMS.register("undead_sword",
-            () -> new UndeadSwordItem(Tiers.IRON, 4, -2.4f, new Item.Properties().stacksTo(1).tab(ModCreativeModeTab.SLAYERS_TAB).rarity(Rarity.UNCOMMON).durability(512)));
+            () -> new UndeadSwordItem(Tiers.IRON, 4, -2.4f, new Item.Properties().stacksTo(1)
+                    .tab(ModCreativeModeTab.SLAYERS_TAB).rarity(Rarity.UNCOMMON).durability(512)));
+
+    public static final RegistryObject<Item> DREADED_SWORD = ITEMS.register("dreaded_sword",
+            () -> new DreadedSwordItem(Tiers.IRON, 4, -2.4f, new Item.Properties().stacksTo(1)
+                    .tab(ModCreativeModeTab.SLAYERS_TAB).rarity(Rarity.RARE).durability(1562)));
+
+    public static final RegistryObject<Item> REAPER_SWORD = ITEMS.register("reaper_sword",
+            () -> new ReaperSwordItem(Tiers.IRON, 4, -2.4f, new Item.Properties().stacksTo(1)
+                    .tab(ModCreativeModeTab.SLAYERS_TAB).rarity(Rarity.EPIC).durability(2032)));
+
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

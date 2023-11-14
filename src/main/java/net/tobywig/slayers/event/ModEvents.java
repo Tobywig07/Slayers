@@ -7,8 +7,8 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
@@ -18,7 +18,6 @@ import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -70,20 +69,12 @@ public class ModEvents {
                     else PacketHandlerV2.sendToPlayer(new SlayerDataSyncPacket(0, 0), player);
 
                 });
+
+                player.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.1f);
+                player.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(2);
             }
         }
     }
-
-    @SubscribeEvent
-    public static void onHurt(LivingHurtEvent event) {
-        if (event.getSource().getEntity() instanceof LivingEntity attacker) {
-            if (attacker.getMainHandItem().getItem() == ModItems.UNDEAD_SWORD.get() && event.getEntity() instanceof Zombie) {
-                event.setAmount(event.getAmount() * 1.2f);
-            }
-        }
-
-    }
-
 
 
     @SubscribeEvent
@@ -101,7 +92,7 @@ public class ModEvents {
                         kills.resetKills();
                         PacketHandlerV2.sendToPlayer(new SlayerDataSyncPacket(0, 0), (ServerPlayer) player);
 
-
+                        // spawn boss
                         EntityType.ZOMBIE.spawn( (ServerLevel) event.getEntity().level, null, Component.literal("Test boss").withStyle(ChatFormatting.DARK_GREEN), null, event.getEntity().blockPosition(), MobSpawnType.EVENT, true, false);
 
                     }
@@ -121,6 +112,15 @@ public class ModEvents {
                 }
             }
 
+
+            // resets kill counter on death
+            if (event.getEntity() instanceof Player player) {
+                player.getCapability(PlayerKillTrackerProvider.PLAYER_KILLS).ifPresent(kills -> {
+                    if (kills.getKillsNeeded() != 0) {
+                        kills.resetKills();
+                    }
+                });
+            }
         }
     }
 
