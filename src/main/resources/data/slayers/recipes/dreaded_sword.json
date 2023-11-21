@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " o ",
+    " o ",
+    "xsx"
+  ],
+  "key": {
+    "o": {
+      "item": "slayers:reactor_core"
+    },
+    "x": {
+      "item": "slayers:infested_heart"
+    },
+    "s": {
+      "item": "slayers:undead_sword"
+    }
+  },
+  "result": {
+    "item": "slayers:dreaded_sword"
+  }
+}

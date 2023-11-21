@@ -12,9 +12,14 @@ public class PlayerKillTracker {
         return kills;
     }
 
+    public int getBossId() {
+        return bossID;
+    }
+
     public void resetKills() {
         this.kills = 0;
         this.killsNeeded = 0;
+        this.bossID = 0;
     }
 
     public int getKillsNeeded() {
@@ -39,16 +44,19 @@ public class PlayerKillTracker {
     public void copyFrom(PlayerKillTracker source) {
         this.kills = source.kills;
         this.killsNeeded = source.killsNeeded;
+        this.bossID = source.killsNeeded;
     }
 
 
     public void saveNBTData(CompoundTag nbt) {
         nbt.putInt("kills", kills);
         nbt.putInt("killsNeeded", killsNeeded);
+        nbt.putInt("bossID", bossID);
     }
 
     public void loadNBTData(CompoundTag nbt) {
         kills = nbt.getInt("kills");
         killsNeeded = nbt.getInt("killsNeeded");
+        bossID = nbt.getInt("bossID");
     }
 }

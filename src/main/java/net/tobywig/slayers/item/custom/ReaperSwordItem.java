@@ -28,7 +28,7 @@ public class ReaperSwordItem extends SwordItem {
         pTooltipComponents.add(Component.literal("").withStyle(ChatFormatting.BLACK));
 
         pTooltipComponents.add(Component.literal("Right click to Enrage:").withStyle(ChatFormatting.DARK_RED));
-        pTooltipComponents.add(Component.literal("+ 2 base damage").withStyle(ChatFormatting.DARK_RED));
+        pTooltipComponents.add(Component.literal("+ 4 damage").withStyle(ChatFormatting.DARK_RED));
         pTooltipComponents.add(Component.literal("+ 50% speed").withStyle(ChatFormatting.DARK_RED));
         pTooltipComponents.add(Component.literal("- rapidly drains hunger").withStyle(ChatFormatting.DARK_RED));
 

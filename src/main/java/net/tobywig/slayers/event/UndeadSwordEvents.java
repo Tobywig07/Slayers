@@ -15,6 +15,8 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.tobywig.slayers.item.ModItems;
 
+import java.util.Objects;
+
 @Mod.EventBusSubscriber
 public class UndeadSwordEvents {
 
@@ -28,8 +30,9 @@ public class UndeadSwordEvents {
             if (!player.getCooldowns().isOnCooldown(ModItems.REAPER_SWORD.get())) {
                 player.getCooldowns().addCooldown(item.getItem(), 800);
 
-                player.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.125f);
-                player.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(3);
+                Objects.requireNonNull(player.getAttribute(Attributes.MOVEMENT_SPEED)).setBaseValue(0.125f);
+                player.addTag("Enraged1");
+
             }
             else if (!event.getLevel().isClientSide()) {
                 player.sendSystemMessage(Component.literal("You have already enraged recently!").withStyle(ChatFormatting.DARK_RED));
@@ -41,9 +44,9 @@ public class UndeadSwordEvents {
             if (!player.getCooldowns().isOnCooldown(ModItems.DREADED_SWORD.get())) {
                 player.getCooldowns().addCooldown(item.getItem(), 800);
 
+                Objects.requireNonNull(player.getAttribute(Attributes.MOVEMENT_SPEED)).setBaseValue(0.15f);
+                player.addTag("Enraged2");
 
-                player.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.15f);
-                player.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(4);
             }
             else if (!event.getLevel().isClientSide()) {
                 player.sendSystemMessage(Component.literal("You have already enraged recently!").withStyle(ChatFormatting.DARK_RED));
@@ -56,11 +59,12 @@ public class UndeadSwordEvents {
     public static void tick(TickEvent.PlayerTickEvent event) {
             Player player = event.player;
 
-            if (player.getAttributeBaseValue(Attributes.ATTACK_DAMAGE) > 2) {
+            if (player.getTags().contains("Enraged1") || player.getTags().contains("Enraged2")) {
                 if (player.getFoodData().getFoodLevel() < 1) {
-                    player.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.1f);
-                    player.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(2);
 
+                    Objects.requireNonNull(player.getAttribute(Attributes.MOVEMENT_SPEED)).setBaseValue(0.1f);
+                    player.removeTag("Enraged1");
+                    player.removeTag("Enraged2");
                 }
                 else player.getFoodData().addExhaustion(0.25f);
 
@@ -71,7 +75,7 @@ public class UndeadSwordEvents {
     @SubscribeEvent
     public static void onEat(LivingEntityUseItemEvent event) {
         if (event.getItem().isEdible()) {
-            if (event.getEntity().getAttributeBaseValue(Attributes.ATTACK_DAMAGE) > 2) {
+            if (event.getEntity().getTags().contains("Enraged1") || event.getEntity().getTags().contains("Enraged2")) {
                 event.setCanceled(true);
             }
         }
@@ -90,6 +94,13 @@ public class UndeadSwordEvents {
             }
             if (attacker.getMainHandItem().getItem() == ModItems.REAPER_SWORD.get() && event.getEntity() instanceof Zombie) {
                 event.setAmount(event.getAmount() * 1.75f);
+            }
+
+            if (attacker.getTags().contains("Enraged1")) {
+                event.setAmount(event.getAmount() + 2);
+            }
+            else if (attacker.getTags().contains("Enraged2")) {
+                event.setAmount(event.getAmount() + 4);
             }
         }
 

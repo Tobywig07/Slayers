@@ -1,6 +1,7 @@
 {
   "itemGroup.slayerstab": "Slayers",
 
+
   "item.slayers.empty_rune": "Empty Rune",
   "item.slayers.basic_rune": "Basic Rune",
   "item.slayers.advanced_rune": "Advanced Rune",
@@ -11,16 +12,25 @@
   "item.slayers.dreaded_rune_t3": "Rune of the Dreaded Ghoul",
 
   "item.slayers.dreaded_flesh": "Dreaded Flesh",
+  "item.slayers.infested_heart": "Infested Heart",
+  "item.slayers.contaged_heart": "Contaged Heart",
+  "item.slayers.reactor_core": "Reactor Core",
+  "item.slayers.corrupted_eye": "Corrupted Eye",
 
+  "item.slayers.healing_orb": "Healing Orb",
   "item.slayers.recovery_staff": "Staff of Recovery",
   "item.slayers.salvation_staff": "Staff of Salvation",
 
   "item.slayers.undead_sword": "Undead Sword",
   "item.slayers.dreaded_sword": "Dreaded Sword",
   "item.slayers.reaper_sword": "Reaper Sword",
+  "item.slayers.necrosword": "Necrosword",
+
 
   "block.slayers.rune_molder": "Rune Molder",
 
   "slayers.tooltip.liquid.amount.with.capacity": "%s / %s mB",
-  "slayers.tooltip.liquid.amount": "%s mB"
+  "slayers.tooltip.liquid.amount": "%s mB",
+
+  "enchantment.slayers.vitality": "Vitality"
 }

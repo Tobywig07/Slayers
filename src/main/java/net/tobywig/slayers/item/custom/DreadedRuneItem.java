@@ -44,7 +44,7 @@ public class DreadedRuneItem extends Item {
             if (item.getRarity() == Rarity.UNCOMMON) {
                 pPlayer.getCapability(PlayerKillTrackerProvider.PLAYER_KILLS).ifPresent(kills -> {
                     kills.resetKills();
-                    ClientKillTrackerData.set(0, 10);
+                    ClientKillTrackerData.set(0, 10, 1);
                     kills.setKillsNeeded(10);
                 });
             }
@@ -53,7 +53,7 @@ public class DreadedRuneItem extends Item {
             if (item.getRarity() == Rarity.RARE) {
                 pPlayer.getCapability(PlayerKillTrackerProvider.PLAYER_KILLS).ifPresent(kills -> {
                     kills.resetKills();
-                    ClientKillTrackerData.set(0, 20);
+                    ClientKillTrackerData.set(0, 20, 2);
                     kills.setKillsNeeded(20);
                 });
             }
@@ -62,7 +62,7 @@ public class DreadedRuneItem extends Item {
             if (item.getRarity() == Rarity.EPIC) {
                 pPlayer.getCapability(PlayerKillTrackerProvider.PLAYER_KILLS).ifPresent(kills -> {
                     kills.resetKills();
-                    ClientKillTrackerData.set(0, 30);
+                    ClientKillTrackerData.set(0, 30, 3);
                     kills.setKillsNeeded(30);
                 });
             }

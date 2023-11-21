@@ -15,12 +15,11 @@ import net.tobywig.slayers.block.entity.ModBlockEntities;
 import net.tobywig.slayers.enchantment.ModEnchantments;
 import net.tobywig.slayers.item.ModItems;
 import net.tobywig.slayers.network.PacketHandlerV2;
-import net.tobywig.slayers.recipe.ModRecipes;
+import net.tobywig.slayers.recipe.custom.ModRecipes;
 import net.tobywig.slayers.screen.ModMenuTypes;
 import net.tobywig.slayers.screen.RuneMolderScreen;
 import org.slf4j.Logger;
 
-// The value here should match an entry in the META-INF/mods.toml file
 @Mod(Slayers.MOD_ID)
 public class Slayers {
     public static final String MOD_ID = "slayers";

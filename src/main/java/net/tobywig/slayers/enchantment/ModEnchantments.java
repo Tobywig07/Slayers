@@ -15,12 +15,12 @@ public class ModEnchantments {
     public static final DeferredRegister<Enchantment> ENCHANTMENTS =
             DeferredRegister.create(ForgeRegistries.ENCHANTMENTS, Slayers.MOD_ID);
 
-    /*public static RegistryObject<Enchantment> SMITE_6 =
-            ENCHANTMENTS.register("smite_6",
-                    () -> new SmiteVIEnchantment(Enchantment.Rarity.UNCOMMON,
-                            EnchantmentCategory.WEAPON, EquipmentSlot.MAINHAND));
+    public static RegistryObject<Enchantment> VITALITY =
+            ENCHANTMENTS.register("vitality",
+                    () -> new VitalityEnchantment(Enchantment.Rarity.UNCOMMON,
+                            EnchantmentCategory.ARMOR_CHEST, EquipmentSlot.CHEST));
 
-     */
+
 
     public static void register(IEventBus eventBus) {
         ENCHANTMENTS.register(eventBus);

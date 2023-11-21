@@ -14,7 +14,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.tobywig.slayers.Slayers;
 import net.tobywig.slayers.block.ModBlocks;
-import net.tobywig.slayers.recipe.RuneMolderRecipe;
+import net.tobywig.slayers.recipe.custom.RuneMolderRecipe;
 
 import java.util.List;
 

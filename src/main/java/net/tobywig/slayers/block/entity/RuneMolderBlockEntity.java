@@ -28,7 +28,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import net.tobywig.slayers.block.custom.RuneMolderBlock;
 import net.tobywig.slayers.network.PacketHandlerV2;
 import net.tobywig.slayers.network.packet.c_to_s.FluidSyncPacket;
-import net.tobywig.slayers.recipe.RuneMolderRecipe;
+import net.tobywig.slayers.recipe.custom.RuneMolderRecipe;
 import net.tobywig.slayers.screen.RuneMolderMenu;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

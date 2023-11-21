@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "xox",
+    "ooo",
+    "xox"
+  ],
+  "key": {
+    "o": {
+      "item": "slayers:dreaded_flesh"
+    },
+    "x": {
+      "item": "minecraft:gold_ingot"
+    }
+  },
+  "result": {
+    "item": "slayers:reactor_core"
+  }
+}

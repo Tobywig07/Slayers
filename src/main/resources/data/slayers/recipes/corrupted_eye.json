@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "xox",
+    "oso",
+    "xox"
+  ],
+  "key": {
+    "o": {
+      "item": "slayers:infested_heart"
+    },
+    "x": {
+      "item": "slayers:reactor_core"
+    },
+    "s": {
+      "item": "minecraft:ender_eye"
+    }
+  },
+  "result": {
+    "item": "slayers:corrupted_eye"
+  }
+}

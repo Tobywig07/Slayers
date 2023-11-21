@@ -1,4 +1,4 @@
-package net.tobywig.slayers.recipe;
+package net.tobywig.slayers.recipe.custom;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;

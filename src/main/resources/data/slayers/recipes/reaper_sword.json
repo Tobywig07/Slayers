@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " o ",
+    " o ",
+    "xsx"
+  ],
+  "key": {
+    "o": {
+      "item": "slayers:corrupted_eye"
+    },
+    "x": {
+      "item": "minecraft:netherite_scrap"
+    },
+    "s": {
+      "item": "slayers:dreaded_sword"
+    }
+  },
+  "result": {
+    "item": "slayers:reaper_sword"
+  }
+}

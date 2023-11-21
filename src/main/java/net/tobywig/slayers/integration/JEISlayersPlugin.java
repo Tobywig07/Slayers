@@ -9,7 +9,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.tobywig.slayers.Slayers;
-import net.tobywig.slayers.recipe.RuneMolderRecipe;
+import net.tobywig.slayers.recipe.custom.RuneMolderRecipe;
 
 import java.util.List;
 import java.util.Objects;

@@ -1,4 +1,4 @@
-package net.tobywig.slayers.recipe;
+package net.tobywig.slayers.recipe.custom;
 
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraftforge.eventbus.api.IEventBus;

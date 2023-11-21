@@ -28,7 +28,7 @@ public class DreadedSwordItem extends SwordItem {
         pTooltipComponents.add(Component.literal("").withStyle(ChatFormatting.BLACK));
 
         pTooltipComponents.add(Component.literal("Right click to Enrage:").withStyle(ChatFormatting.DARK_RED));
-        pTooltipComponents.add(Component.literal("+ 1 base damage").withStyle(ChatFormatting.DARK_RED));
+        pTooltipComponents.add(Component.literal("+ 2 damage").withStyle(ChatFormatting.DARK_RED));
         pTooltipComponents.add(Component.literal("+ 25% speed").withStyle(ChatFormatting.DARK_RED));
         pTooltipComponents.add(Component.literal("- rapidly drains hunger").withStyle(ChatFormatting.DARK_RED));
 

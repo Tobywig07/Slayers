@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "  o",
+    " x ",
+    "x  "
+  ],
+  "key": {
+    "o": {
+      "item": "slayers:infested_heart"
+    },
+    "x": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "slayers:recovery_staff"
+  }
+}
