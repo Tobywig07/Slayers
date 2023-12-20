@@ -4,11 +4,13 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.Tiers;
+import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.tobywig.slayers.Slayers;
+import net.tobywig.slayers.entity.ModEntities;
 import net.tobywig.slayers.item.custom.*;
 
 public class ModItems {
@@ -79,6 +81,11 @@ public class ModItems {
     public static final RegistryObject<Item> NECROSWORD = ITEMS.register("necrosword",
             () -> new NecroswordItem(Tiers.NETHERITE, 3, -2.4f, new Item.Properties().stacksTo(1)
                     .tab(ModCreativeModeTab.SLAYERS_TAB).rarity(Rarity.EPIC).durability(3048)));
+
+    // spawn eggs
+    public static final RegistryObject<Item> VOIDWRATH_TIER1 = ITEMS.register("voidwrath_tier1_spawn_egg",
+            () -> new ForgeSpawnEggItem(ModEntities.EMAN_TIER1, 0xaa42f5, 0x000000, new Item.Properties().stacksTo(1)
+                    .tab(ModCreativeModeTab.SLAYERS_TAB).stacksTo(64)));
 
 
     public static void register(IEventBus eventBus) {

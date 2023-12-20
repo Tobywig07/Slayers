@@ -90,17 +90,17 @@ public class ModEvents {
     @SubscribeEvent
     public static void onKill(LivingDeathEvent event) {
         if (!event.getEntity().level.isClientSide()) {
-            if (event.getSource().getEntity() instanceof Player player && event.getEntity().getMobType() == MobType.UNDEAD && event.getEntity().getType() != EntityType.WITHER) {
-                ItemStack item = player.getMainHandItem();
-                if (item.is(ModItems.NECROSWORD.get()) && !event.getEntity().getTags().contains(player.getName().getString())) {
-                    if (!item.getOrCreateTag().contains("Soul1")) {
-                        item.getOrCreateTag().putString("Soul1", EntityType.getKey(event.getEntity().getType()).toString());
-                    }
-                    else if (!item.getOrCreateTag().contains("Soul2")) {
-                        item.getOrCreateTag().putString("Soul2", EntityType.getKey(event.getEntity().getType()).toString());
-                    }
-                    else if (!item.getOrCreateTag().contains("Soul3")) {
-                        item.getOrCreateTag().putString("Soul3", EntityType.getKey(event.getEntity().getType()).toString());
+            if (event.getSource().getEntity() instanceof Player player && event.getEntity().getMobType() == MobType.UNDEAD) {
+                if (event.getEntity().getType() != EntityType.WITHER) {
+                    ItemStack item = player.getMainHandItem();
+                    if (item.is(ModItems.NECROSWORD.get()) && !event.getEntity().getTags().contains(player.getName().getString())) {
+                        if (!item.getOrCreateTag().contains("Soul1")) {
+                            item.getOrCreateTag().putString("Soul1", EntityType.getKey(event.getEntity().getType()).toString());
+                        } else if (!item.getOrCreateTag().contains("Soul2")) {
+                            item.getOrCreateTag().putString("Soul2", EntityType.getKey(event.getEntity().getType()).toString());
+                        } else if (!item.getOrCreateTag().contains("Soul3")) {
+                            item.getOrCreateTag().putString("Soul3", EntityType.getKey(event.getEntity().getType()).toString());
+                        }
                     }
                 }
             }

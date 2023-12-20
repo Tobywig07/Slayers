@@ -1,6 +1,10 @@
 {
   "itemGroup.slayerstab": "Slayers",
 
+  "block.slayers.rune_molder": "Rune Molder",
+
+  "slayers.tooltip.liquid.amount.with.capacity": "%s / %s mB",
+  "slayers.tooltip.liquid.amount": "%s mB",
 
   "item.slayers.empty_rune": "Empty Rune",
   "item.slayers.basic_rune": "Basic Rune",
@@ -26,11 +30,8 @@
   "item.slayers.reaper_sword": "Reaper Sword",
   "item.slayers.necrosword": "Necrosword",
 
+  "enchantment.slayers.vitality": "Vitality",
 
-  "block.slayers.rune_molder": "Rune Molder",
-
-  "slayers.tooltip.liquid.amount.with.capacity": "%s / %s mB",
-  "slayers.tooltip.liquid.amount": "%s mB",
-
-  "enchantment.slayers.vitality": "Vitality"
+  "item.slayers.voidwrath_tier1_spawn_egg": "Voidwrath Tier 1 Spawn Egg",
+  "entity.slayers.eman_tier1": "Voidwrath Tier 1"
 }

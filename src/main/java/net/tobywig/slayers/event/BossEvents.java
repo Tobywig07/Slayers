@@ -13,10 +13,14 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentInstance;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraftforge.event.entity.living.LivingChangeTargetEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.tobywig.slayers.capability.killTracker.PlayerKillTrackerProvider;
+import net.tobywig.slayers.entity.ModEntities;
+import net.tobywig.slayers.entity.custom.EmanTier1Entity;
 import net.tobywig.slayers.item.ModItems;
 import net.tobywig.slayers.network.PacketHandlerV2;
 import net.tobywig.slayers.network.packet.s_to_c.SlayerDataSyncPacket;
@@ -72,6 +76,16 @@ public class BossEvents {
                         kills.resetKills();
                     }
                 });
+            }
+        }
+    }
+
+    // attack last hurt by mob
+    @SubscribeEvent
+    public static void onTargetChange(LivingChangeTargetEvent event) {
+        if (event.getEntity() instanceof EmanTier1Entity entity) {
+            if (entity.getLastHurtByMob() != null) {
+                event.setNewTarget(entity.getLastHurtByMob());
             }
         }
     }
